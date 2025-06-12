@@ -1,13 +1,66 @@
+/* Container: tam ekran ortalamalı */
 .welcome-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+  padding: 16px;
+}
+
+.welcome-card {
+  background: #fff;
+  padding: 32px;
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
   text-align: center;
-  margin-top: 100px;
 }
+
+.welcome-card h2 {
+  margin-bottom: 16px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+.welcome-card p {
+  margin-bottom: 24px;
+  color: #555;
+}
+
 .button-group {
-  margin-top: 30px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  justify-content: center;
 }
-button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  font-size: 16px;
+
+.button-group button {
+  flex: 1 1 120px;
+  background-color: #4a90e2;
+  color: #fff;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 1rem;
   cursor: pointer;
+  transition: background-color .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button-group button:hover {
+  background-color: #357ab8;
+}
+
+@media (max-width: 480px) {
+  .welcome-card {
+    padding: 24px;
+  }
+  .button-group {
+    flex-direction: column;
+  }
 }

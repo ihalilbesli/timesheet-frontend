@@ -37,8 +37,44 @@ export const routes: Routes = [
         path: 'user-dashboard',
         loadComponent: () =>
             import('./components/user/dashboard/dashboard.component').then(m => m.DashboardComponent),
-        canActivate: [authGuard,roleGuard(['USER'])]
+        canActivate: [authGuard, roleGuard(['USER'])]
+    },
+    {
+        path: 'user-timesheet-create',
+        loadComponent: () =>
+            import('./components/user/timesheet-create/timesheet-create.component')
+                .then(m => m.TimesheetCreateComponent),
+        canActivate: [authGuard, roleGuard(['USER'])]
+    },
+    {
+        path: 'user-timesheet-list',
+        loadComponent: () =>
+            import('./components/user/timesheet-list/timesheet-list.component')
+                .then(m => m.TimesheetListComponent),
+        canActivate: [authGuard, roleGuard(['USER'])]
+    },
+    {
+        path: 'admin-dashboard',
+        loadComponent: () =>
+            import('./components/admin/dashboard/dashboard.component')
+                .then(m => m.DashboardComponent),
+        canActivate: [authGuard, roleGuard(['ADMIN'])]
+    },
+    {
+        path: 'users-list',
+        loadComponent: () =>
+            import('./components/admin/user-list/user-list.component')
+                .then(m => m.UserListComponent),
+        canActivate: [authGuard, roleGuard(['ADMIN'])]
+    },
+    {
+        path: 'timesheets',
+        loadComponent: () =>
+            import('./components/admin/timesheets/timesheets.component')
+                .then(m => m.TimesheetsComponent),
+        canActivate: [authGuard, roleGuard(['ADMIN'])]
     }
+
 
 
 ];

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user/user.service';
 import { AuthService } from '../../services/auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-header',
@@ -15,7 +16,11 @@ export class HeaderComponent {
   user: any = null;
   error: string = '';
 
-  constructor(private userService: UserService, private authService: AuthService) {}
+  constructor(
+    private userService: UserService,
+    private authService: AuthService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe({
@@ -24,6 +29,7 @@ export class HeaderComponent {
       },
       error: () => {
         this.error = 'Kullanıcı bilgileri alınamadı.';
+        this.toastr.error('Kullanıcı bilgileri alınamadı.', 'Hata');
       }
     });
   }

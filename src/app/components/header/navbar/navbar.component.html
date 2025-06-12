@@ -1,0 +1,33 @@
+<!-- user-navbar.component.html -->
+<div class="top-bar">
+  <!-- Logo ve sistem adı -->
+  <div class="logo-section" style="cursor: pointer;">
+    <i class="fa-solid fa-clock-rotate-left fa-2x" style="color: #013d6b;"></i>
+    <span class="system-name">Timesheet Sistemi</span>
+  </div>
+
+  <!-- Ortadaki saat -->
+  <div class="center-content">
+    <div class="tagline"><i class="fa-regular fa-clock"></i> "Zamanı Verimli Kullanın"</div>
+    <div class="live-clock">{{ currentTime }}</div>
+  </div>
+
+  <!-- Kullanıcı dropdown -->
+  <div class="user-menu">
+    <button class="user-button" (click)="toggleMenu()" #toggleButtonRef>
+      <i class="fa-solid fa-user"></i>
+      <span class="name-text">{{ currentUser?.username }}</span>
+      <i class="fa-solid fa-chevron-down"></i>
+    </button>
+
+    <div *ngIf="showMenu" class="dropdown-menu" #dropdownMenuRef>
+      <div class="dropdown-section">
+        <strong><i class="fa-solid fa-user"></i> Hesap</strong>
+        <button (click)="goToProfile()"><i class="fa-solid fa-id-badge"></i> Profil</button>
+        <button (click)="goToProfile('password')"><i class="fa-solid fa-key"></i> Şifre</button>
+      </div>
+      <hr />
+      <button (click)="logout()"><i class="fa-solid fa-right-from-bracket"></i> Çıkış Yap</button>
+    </div>
+  </div>
+</div>

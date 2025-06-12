@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -14,18 +15,26 @@ import { FormsModule } from '@angular/forms';
 export class LoginComponent {
   username = '';
   password = '';
-  errorMessage = '';
+  showPassword = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) { }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
 
   onSubmit() {
     if (!this.username || !this.password) {
-      this.errorMessage = 'Kullanıcı adı ve şifre zorunludur.';
+      this.toastr.error('Kullanıcı adı ve şifre zorunludur.', 'Hata');
       return;
     }
 
     this.authService.login(this.username, this.password).subscribe({
-      next: (response) => {
+      next: () => {
         const role = this.authService.getUserRole();
         console.log('👤 User role:', role);
 
@@ -34,12 +43,11 @@ export class LoginComponent {
         } else if (role === 'USER') {
           this.router.navigate(['/user-dashboard']);
         } else {
-          this.router.navigate(['/welcome']); // bilinmeyen roller için fallback
+          this.router.navigate(['/welcome']);
         }
       },
-      error: (err) => {
-        console.error('❌ Login error:', err);
-        this.errorMessage = 'Giriş başarısız. Lütfen bilgilerinizi kontrol edin.';
+      error: () => {
+        this.toastr.error('Giriş başarısız. Lütfen bilgilerinizi kontrol edin.', 'Hata');
       }
     });
   }

@@ -1,9 +1,17 @@
 <div class="dashboard-container">
-  <h2>👋 Hoş Geldiniz, Kullanıcı!</h2>
+  <h2 *ngIf="user">
+    <i class="fas fa-hand-wave"></i> Hoş Geldiniz, {{ user.username }}!
+  </h2>
+  <h2 *ngIf="!user">
+    <i class="fas fa-hand-wave"></i> Hoş Geldiniz!
+  </h2>
 
   <div class="card-grid">
-    <a class="dashboard-card" routerLink="/profil">👤 Profil Bilgilerim</a>
-    <a class="dashboard-card" routerLink="/timesheet/create">📝 Yeni Timesheet Oluştur</a>
-    <a class="dashboard-card" routerLink="/timesheet/list">📋 Timesheet Listesi</a>
+    <a class="dashboard-card" routerLink="/user-timesheet-create">
+      <i class="fas fa-pen"></i> Yeni Timesheet Oluştur
+    </a>
+    <a class="dashboard-card" routerLink="/user-timesheet-list">
+      <i class="fas fa-list-alt"></i> Timesheet Listesi
+    </a>
   </div>
 </div>

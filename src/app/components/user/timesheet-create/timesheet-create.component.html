@@ -1,0 +1,21 @@
+<div class="timesheet-wrapper">
+  <h2 class="form-title"><i class="fas fa-pen"></i> Yeni Timesheet Girişi</h2>
+
+  <div class="form-container">
+    <form (ngSubmit)="onSubmit()">
+      <label><i class="fas fa-calendar-day"></i> Tarih:</label>
+      <input type="date" [(ngModel)]="date" name="date" required />
+
+      <label><i class="fas fa-hourglass-start"></i> Başlangıç Saati:</label>
+      <input type="time" [(ngModel)]="startTime" name="startTime" required />
+
+      <label><i class="fas fa-hourglass-end"></i> Bitiş Saati:</label>
+      <input type="time" [(ngModel)]="endTime" name="endTime" required />
+
+      <label><i class="fas fa-align-left"></i> Açıklama:</label>
+      <textarea [(ngModel)]="description" name="description" placeholder="Bugün ne yaptınız?"></textarea>
+
+      <button type="submit"><i class="fas fa-save"></i> Kaydet</button>
+    </form>
+  </div>
+</div>

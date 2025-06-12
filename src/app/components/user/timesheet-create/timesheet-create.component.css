@@ -1,0 +1,105 @@
+/* Arka plan ve sayfa düzeni */
+.timesheet-wrapper {
+  min-height: 100vh;
+  background: linear-gradient(to right, #f2f6fa, #e2ecf5);
+  padding: 40px 16px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Başlık stili */
+.form-title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Kart görünümü */
+.form-container {
+  width: 100%;
+  max-width: 500px;
+  background-color: #ffffff;
+  padding: 36px;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+}
+
+/* Form içindeki label ve input'lar */
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #34495e;
+  font-size: 0.95rem;
+}
+
+input[type="date"],
+input[type="time"],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 20px;
+  border: 1px solid #dce1ea;
+  border-radius: 8px;
+  font-size: 1rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+  border-color: #4a90e2;
+  outline: none;
+}
+
+/* Textarea için özel boyut */
+textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Kaydet butonu */
+button[type="submit"] {
+  width: 100%;
+  background-color: #4a90e2;
+  color: #fff;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button[type="submit"]:hover {
+  background-color: #357ab8;
+  transform: translateY(-2px);
+}
+
+/* Mobil uyum */
+@media (max-width: 600px) {
+  .form-container {
+    padding: 24px;
+  }
+
+  .form-title {
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  button[type="submit"] {
+    font-size: 1rem;
+  }
+}

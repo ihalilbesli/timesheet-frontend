@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
-
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -16,8 +16,17 @@ export class RegisterComponent {
   username: string = '';
   email: string = '';
   password: string = '';
+  showPassword = false;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
+  }
+
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   onSubmit() {
     const user = {
@@ -28,10 +37,12 @@ export class RegisterComponent {
 
     this.authService.register(user).subscribe({
       next: () => {
-        alert('Kayıt başarılı!');
+        this.toastr.success('Kayıt başarılı!', 'Başarılı');
         this.router.navigate(['/login']);
       },
-      error: () => alert('Kayıt başarısız. Lütfen tekrar deneyin.')
+      error: () => {
+        this.toastr.error('Kayıt başarısız. Lütfen tekrar deneyin.', 'Hata');
+      }
     });
   }
 }
