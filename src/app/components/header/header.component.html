@@ -1,0 +1,9 @@
+<div class="profile-container" *ngIf="user">
+  <h2>👤 Profil Bilgilerim</h2>
+  <p><strong>ID:</strong> {{ user.id }}</p>
+  <p><strong>Kullanıcı Adı:</strong> {{ user.username }}</p>
+  <p><strong>Email:</strong> {{ user.email }}</p>
+  <p><strong>Rol:</strong> {{ user.role }}</p>
+</div>
+
+<div *ngIf="error" class="error">{{ error }}</div>
