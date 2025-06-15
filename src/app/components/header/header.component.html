@@ -1,9 +1,90 @@
 <div class="profile-container" *ngIf="user">
-  <h2>👤 Profil Bilgilerim</h2>
-  <p><strong>ID:</strong> {{ user.id }}</p>
-  <p><strong>Kullanıcı Adı:</strong> {{ user.username }}</p>
-  <p><strong>Email:</strong> {{ user.email }}</p>
-  <p><strong>Rol:</strong> {{ user.role }}</p>
+  <h2><i class="fas fa-user-circle"></i> Profil Bilgilerim</h2>
+
+  <!-- Profil Güncelleme -->
+  <form *ngIf="editMode" (ngSubmit)="updateProfile()" #profileForm="ngForm" novalidate>
+    <!-- ID -->
+    <div class="form-group">
+      <label><i class="fas fa-id-badge"></i> ID:</label>
+      <input type="text" [value]="formUser.id" disabled />
+    </div>
+
+    <!-- Kullanıcı Adı -->
+    <div class="form-group">
+      <label><i class="fas fa-user"></i> Kullanıcı Adı:</label>
+      <input type="text" [(ngModel)]="formUser.username" name="username" required #usernameInput="ngModel" />
+      <div class="warning" *ngIf="usernameInput.invalid && usernameInput.touched">
+        Kullanıcı adı boş bırakılamaz.
+      </div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label><i class="fas fa-envelope"></i> Email:</label>
+      <input type="email" [(ngModel)]="formUser.email" name="email" required email #emailInput="ngModel" />
+      <div class="warning" *ngIf="emailInput.invalid && emailInput.touched">
+        <span *ngIf="emailInput.errors?.['required']">Email alanı zorunludur.</span>
+        <span *ngIf="emailInput.errors?.['email']">Geçerli bir email adresi giriniz.</span>
+      </div>
+    </div>
+
+    <!-- Rol -->
+    <div class="form-group">
+      <label><i class="fas fa-user-tag"></i> Rol:</label>
+      <input type="text" [value]="formUser.role" disabled />
+    </div>
+
+    <!-- Butonlar -->
+    <div class="button-group">
+      <button type="submit" [disabled]="!profileForm.form.valid"><i class="fas fa-save"></i> Kaydet</button>
+      <button type="button" (click)="cancelEdit()"><i class="fas fa-times-circle"></i> İptal</button>
+    </div>
+  </form>
+
+  <!-- Şifre Değiştirme -->
+  <form *ngIf="changePasswordMode" (ngSubmit)="updatePassword()" #passwordForm="ngForm">
+    <div class="form-group">
+      <label><i class="fas fa-lock"></i> Eski Şifre:</label>
+      <div class="password-wrapper">
+        <input [type]="showOldPassword ? 'text' : 'password'" name="oldPassword" [(ngModel)]="passwordData.oldPassword"
+          required />
+        <i class="fas" [ngClass]="showOldPassword ? 'fa-eye-slash' : 'fa-eye'"
+          (click)="showOldPassword = !showOldPassword"></i>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label><i class="fas fa-lock-open"></i> Yeni Şifre:</label>
+      <div class="password-wrapper">
+        <input [type]="showNewPassword ? 'text' : 'password'" name="newPassword" [(ngModel)]="passwordData.newPassword"
+          required />
+        <i class="fas" [ngClass]="showNewPassword ? 'fa-eye-slash' : 'fa-eye'"
+          (click)="showNewPassword = !showNewPassword"></i>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label><i class="fas fa-lock"></i> Yeni Şifre (Tekrar):</label>
+      <div class="password-wrapper">
+        <input [type]="showConfirmPassword ? 'text' : 'password'" name="confirmPassword"
+          [(ngModel)]="passwordData.confirmPassword" required />
+        <i class="fas" [ngClass]="showConfirmPassword ? 'fa-eye-slash' : 'fa-eye'"
+          (click)="showConfirmPassword = !showConfirmPassword"></i>
+      </div>
+    </div>
+
+
+
+    <div class="warning" *ngIf="passwordMismatch">
+      Yeni şifreler uyuşmuyor!
+    </div>
+
+    <div class="button-group">
+      <button type="submit"><i class="fas fa-key"></i> Güncelle</button>
+      <button type="button" (click)="cancelEdit()"><i class="fas fa-times-circle"></i> İptal</button>
+    </div>
+  </form>
 </div>
 
+<!-- Hata -->
 <div *ngIf="error" class="error">{{ error }}</div>

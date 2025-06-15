@@ -8,17 +8,20 @@
 
     <div class="form-group">
       <label for="password"><i class="fas fa-lock"></i> Şifre:</label>
-      <div class="password-wrapper" style="display: flex; align-items: center;">
+      <div class="password-wrapper">
         <input [type]="showPassword ? 'text' : 'password'" id="password"
-               [(ngModel)]="password" name="password"
-               required autocomplete="current-password" />
+               [(ngModel)]="password" name="password" required autocomplete="current-password" />
         <i class="fas"
            [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
-           (click)="togglePasswordVisibility()"
-           style="cursor: pointer; margin-left: 8px;"></i>
+           (click)="togglePasswordVisibility()"></i>
       </div>
     </div>
 
     <button type="submit"><i class="fas fa-sign-in-alt"></i> Giriş Yap</button>
   </form>
+
+  <p class="register-link">
+    Hesabınız yok mu?
+    <a routerLink="/register">Kayıt Ol</a>
+  </p>
 </div>

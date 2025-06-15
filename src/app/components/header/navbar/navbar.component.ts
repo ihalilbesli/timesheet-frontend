@@ -1,19 +1,19 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { UserService } from '../../../services/user/user.service';
 import { AuthService } from '../../../services/auth/auth.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule,RouterModule],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
 
-   currentUser: any;
+  currentUser: any;
   showMenu = false;
   currentTime: string = '';
 
@@ -67,5 +67,16 @@ export class NavbarComponent {
       weekday: 'long', year: 'numeric', month: 'long',
       day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit'
     });
+  }
+  goToDashboard() {
+    const role = this.currentUser?.role;
+
+    if (role === 'ADMIN') {
+      this.router.navigate(['/admin-dashboard']);
+    } else if (role === 'USER') {
+      this.router.navigate(['/user-dashboard']);
+    } else {
+      this.router.navigate(['/welcome']);
+    }
   }
 }

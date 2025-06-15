@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user/user.service';
 import { CommonModule } from '@angular/common';
 import { ExportService } from '../../../services/export/export.service';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-list',
@@ -24,8 +25,9 @@ export class UserListComponent {
   constructor(
     private userService: UserService,
     private router: Router,
-    private exportService: ExportService
-  ) {}
+    private exportService: ExportService,
+    private toastr: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.isLoading = true;
@@ -36,7 +38,7 @@ export class UserListComponent {
         this.isLoading = false;
       },
       error: () => {
-        alert("Kullanıcılar alınamadı.");
+        this.toastr.error("Kullanıcılar alınamadı.", "Hata");
         this.isLoading = false;
       }
     });
@@ -71,5 +73,19 @@ export class UserListComponent {
       KayıtTarihi: user.createdAt
     }));
     this.exportService.exportToCsv('kullanicilar.csv', exportData);
+  }
+
+  deleteUser(userId: number): void {
+    if (confirm('Kullanıcıyı silmek istediğinize emin misiniz?')) {
+      this.userService.deleteUser(userId).subscribe({
+        next: () => {
+          this.toastr.success('Kullanıcı başarıyla silindi.', 'Başarılı');
+          this.ngOnInit(); // Listeyi yenile
+        },
+        error: () => {
+          this.toastr.error('Kullanıcı silinirken hata oluştu.', 'Hata');
+        }
+      });
+    }
   }
 }

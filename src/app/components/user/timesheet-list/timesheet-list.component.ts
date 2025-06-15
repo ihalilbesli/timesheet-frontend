@@ -158,4 +158,18 @@ export class TimesheetListComponent {
     this.exportService.exportToCsv('timesheets.csv', exportData);
     this.toastr.success('CSV dosyası oluşturuldu.', 'Başarılı');
   }
+  deleteTimesheet(id: number): void {
+  if (confirm("Bu timesheet kaydını silmek istediğinize emin misiniz?")) {
+    this.timesheetService.deleteTimesheet(id).subscribe({
+      next: () => {
+        this.toastr.success('Timesheet silindi.', 'Başarılı');
+        this.fetchAll();
+      },
+      error: () => {
+        this.toastr.error('Silme işlemi başarısız oldu.', 'Hata');
+      }
+    });
+  }
+}
+  
 }

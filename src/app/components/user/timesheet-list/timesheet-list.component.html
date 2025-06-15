@@ -45,9 +45,12 @@
       <td>{{ t.startTime }}</td>
       <td>{{ t.endTime }}</td>
       <td>{{ t.totalDuration }}</td>
-      <td>
+      <td class="action-buttons">
         <button (click)="editTimesheet(t)">
           <i class="fas fa-pencil-alt"></i> Güncelle
+        </button>
+        <button (click)="deleteTimesheet(t.id)" class="delete">
+          <i class="fas fa-trash-alt"></i> Sil
         </button>
       </td>
     </tr>

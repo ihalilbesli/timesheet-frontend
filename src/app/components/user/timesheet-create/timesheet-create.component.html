@@ -4,7 +4,7 @@
   <div class="form-container">
     <form (ngSubmit)="onSubmit()">
       <label><i class="fas fa-calendar-day"></i> Tarih:</label>
-      <input type="date" [(ngModel)]="date" name="date" required />
+      <input type="date" [(ngModel)]="date" name="date" [max]="today" required />
 
       <label><i class="fas fa-hourglass-start"></i> Başlangıç Saati:</label>
       <input type="time" [(ngModel)]="startTime" name="startTime" required />

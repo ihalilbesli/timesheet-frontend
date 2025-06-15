@@ -69,5 +69,18 @@ export class TimesheetService {
       headers: this.getHeaders()
     });
   }
+  // 5. Belirli bir tarihteki timesheet kayıtlarını getir
+  getMyTimesheetsByDate(date: string): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/by-date/${date}`, {
+      headers: this.getHeaders()
+    });
+  }
+  deleteTimesheet(id: number): Observable<any> {
+    return this.http.delete(`${this.apiUrl}/${id}`, {
+      headers: this.getHeaders()
+    });
+  }
+
+
 
 }

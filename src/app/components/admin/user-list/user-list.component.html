@@ -1,6 +1,5 @@
 <div class="user-list-header">
     <h2><i class="fas fa-users"></i> Kullanıcı Listesi</h2>
-
 </div>
 
 <!-- Filtreleme Alanları -->
@@ -8,9 +7,9 @@
     <input type="text" [(ngModel)]="searchUsername" placeholder="Kullanıcı adı ara" />
     <input type="text" [(ngModel)]="searchEmail" placeholder="E-posta ara" />
     <input type="date" [(ngModel)]="searchDate" />
-    <button (click)="applyFilters()"><i class="fas fa-search"></i> Ara</button>
-    <button (click)="clearFilters()"><i class="fas fa-broom"></i> Temizle</button>
-    <button (click)="exportUsers()">
+    <button class="filter-btn" (click)="applyFilters()"><i class="fas fa-search"></i> Ara</button>
+    <button class="filter-btn" (click)="clearFilters()"><i class="fas fa-broom"></i> Temizle</button>
+    <button class="filter-btn" (click)="exportUsers()">
         <i class="fas fa-file-csv"></i> CSV Olarak Dışa Aktar
     </button>
 </div>
@@ -34,14 +33,17 @@
             <td>{{ u.role }}</td>
             <td>{{ u.createdAt | date: 'yyyy-MM-dd' }}</td>
             <td>
-                <button (click)="viewTimesheets(u.id)">
+                <button class="view-btn" (click)="viewTimesheets(u.id)" title="Timesheetleri Gör">
                     <i class="fas fa-eye"></i> Timesheetleri Gör
+                </button>
+                <button class="delete-btn" (click)="deleteUser(u.id)" title="Kullanıcı Sil">
+                    <i class="fas fa-trash-alt"></i> Sil
                 </button>
             </td>
         </tr>
     </tbody>
 </table>
 
-<p *ngIf="!isLoading && filteredUsers.length === 0">
+<p *ngIf="!isLoading && filteredUsers.length === 0" class="no-results">
     <i class="fas fa-info-circle"></i> Eşleşen kullanıcı bulunamadı.
 </p>
