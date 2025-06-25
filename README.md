@@ -121,3 +121,39 @@ Authorization: Bearer <jwt-token>
 `AuthService` bu token'ı yönetir, çözümler ve kullanıcı rolünü kontrol etmek için yardımcı metotlar sağlar (`getUserRole()`, `isLoggedIn()` gibi).
 
 
+## 🧭 Sayfa Yönlendirme (Routing) Mantığı
+
+Uygulama içerisinde yönlendirmeler Angular Router üzerinden yapılır ve `app.routes.ts` dosyasında tanımlanır. Sayfa erişimleri `AuthGuard` ve `RoleGuard` ile korunur.
+
+### 📌 Örnek Routing Yapısı:
+
+| Yol                     | Açıklama                                | Guard |
+|-------------------------|------------------------------------------|--------|
+| `/login`                | Giriş ekranı                             | ❌     |
+| `/register`             | Kayıt ekranı                             | ❌     |
+| `/user/dashboard`       | Kullanıcı paneli                         | ✅ Auth + Role (`USER`) |
+| `/admin/dashboard`      | Admin paneli                             | ✅ Auth + Role (`ADMIN`) |
+| `/welcome`              | Hoş geldiniz sayfası (anonim)           | ❌     |
+
+### 🔐 Guard Kullanımı
+
+Her route tanımında aşağıdaki gibi koruma yapılır:
+
+```ts
+{
+  path: 'admin/dashboard',
+  component: AdminDashboardComponent,
+  canActivate: [AuthGuard, RoleGuard],
+  data: { expectedRole: ['ADMIN'] }
+}
+```
+
+- `AuthGuard` → Oturum açılmış mı kontrol eder.
+- `RoleGuard` → Giriş yapan kullanıcının rolü eşleşiyor mu kontrol eder.
+
+---
+
+> Tüm yönlendirmeler, `app.routes.ts` dosyasında merkezi olarak yönetilir.
+
+
+
