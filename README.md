@@ -1,27 +1,99 @@
-# TimesheetFrontend
+# 🖥️ Timesheet Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.1.4.
+Bu proje, kullanıcıların günlük çalışma saatlerini (timesheet) sisteme girebildiği, geçmiş kayıtlarını görüntüleyebildiği ve yöneticilerin kullanıcıları yönetebildiği bir web arayüzüdür. Angular kullanılarak geliştirilmiştir ve Spring Boot tabanlı backend servisiyle entegre çalışmaktadır.
 
-## Development server
+## 👤 Kullanıcı Özellikleri
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Kayıt olma ve giriş yapma (JWT ile güvenli oturum)
+- Timesheet (çalışma saati) oluşturma, güncelleme, silme
+- Kayıtları tarih aralığına göre filtreleme
+- CSV/Excel formatında dışa aktarma
 
-## Code scaffolding
+## 🛡️ Admin Paneli Özellikleri
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- Tüm kullanıcıların kayıtlarını listeleme
+- Kullanıcılara göre filtreleme ve arama
+- Kullanıcı timesheet verilerini dışa aktarma (CSV/Excel)
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 🧰 Kullanılan Teknolojiler
 
-## Running unit tests
+<p align="left">
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg" width="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" width="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" width="50"/>
+  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" width="50"/>
+</p>
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **Angular 18** – Modern frontend framework
+- **TypeScript** – JavaScript'in tip güvenliği olan versiyonu
+- **HTML5 & CSS3** – Sayfa yapısı ve stil düzenlemeleri
+- **ngx-toastr** – Bildirim (toast) sistemi
 
-## Running end-to-end tests
+## 🔧 Uygulamanın Kurulumu ve Çalıştırılması
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Aşağıdaki adımları izleyerek projeyi kendi bilgisayarınızda çalıştırabilirsiniz:
 
-## Further help
+### 1. Angular CLI’yi Global Olarak Yükleyin (Eğer Yüklü Değilse)
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+```bash
+npm install -g @angular/cli
+```
+
+### 2. Depoyu Klonlayın
+
+```bash
+git clone https://github.com/ihalilbesli/timesheet-frontend.git
+cd timesheet-frontend
+```
+
+### 3. Proje Bağımlılıklarını Yükleyin
+
+```bash
+npm install
+```
+
+### 4. Uygulamayı Başlatın
+
+```bash
+ng serve
+```
+
+Tarayıcıdan şu adrese giderek uygulamayı görüntüleyebilirsiniz:  
+📍 `http://localhost:4200`
+
+> Not: Uygulamanın düzgün çalışabilmesi için backend (`http://localhost:8080`) aktif olmalıdır.
+
+
+## 📁 Proje Klasör Yapısı
+
+Aşağıda `src/app` dizini altındaki klasör yapısı ve görevleri yer almaktadır:
+
+```
+src/app
+│
+├── components               # Uygulama bileşenleri (her role özel bölümler)
+│   ├── admin                # Admin paneli (kullanıcı yönetimi, tüm kayıtlar)
+│   ├── auth                 # Giriş ve kayıt bileşenleri
+│   ├── header               # Navigasyon, üst menü bileşeni
+│   ├── user                 # Kullanıcı dashboard ve işlemleri
+│   └── welcome              # Hoş geldiniz sayfası
+│
+├── guards                  # Sayfa güvenliği (yetki kontrolü)
+│   ├── auth                # Giriş kontrolü (oturum var mı?)
+│   └── role                # Rol tabanlı yönlendirme (USER, ADMIN)
+│
+├── services                # Tüm API iletişimini yöneten servisler
+│   ├── auth                # Giriş, kayıt, token işlemleri
+│   ├── export              # CSV/Excel dışa aktarma
+│   ├── timesheet           # Timesheet işlemleri
+│   └── user                # Kullanıcı bilgileri yönetimi
+│
+├── app.routes.ts           # Tüm uygulama yönlendirmelerini (routing) içerir
+├── app.config.ts           # Ortak yapılandırmalar
+├── app.component.ts/html   # Ana uygulama bileşeni
+```
+
+Bu yapı, Angular’ın modüler geliştirme yaklaşımına uygun olarak ayrılmıştır. Her klasör, uygulamanın bir parçasını temsil eder ve sorumluluklar net olarak bölünmüştür.
+
+
