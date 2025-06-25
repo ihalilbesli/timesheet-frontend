@@ -140,12 +140,13 @@ Uygulama içerisinde yönlendirmeler Angular Router üzerinden yapılır ve `app
 Her route tanımında aşağıdaki gibi koruma yapılır:
 
 ```ts
-{
-  path: 'admin/dashboard',
-  component: AdminDashboardComponent,
-  canActivate: [AuthGuard, RoleGuard],
-  data: { expectedRole: ['ADMIN'] }
-}
+ {
+        path: 'admin-dashboard',
+        loadComponent: () =>
+            import('./components/admin/dashboard/dashboard.component')
+                .then(m => m.DashboardComponent),
+        canActivate: [authGuard, roleGuard(['ADMIN'])]
+    }
 ```
 
 - `AuthGuard` → Oturum açılmış mı kontrol eder.
