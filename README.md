@@ -96,4 +96,28 @@ src/app
 
 Bu yapı, Angular’ın modüler geliştirme yaklaşımına uygun olarak ayrılmıştır. Her klasör, uygulamanın bir parçasını temsil eder ve sorumluluklar net olarak bölünmüştür.
 
+## 🔐 Kimlik Doğrulama ve Yetkilendirme (Auth & Guard Sistemi)
+
+Bu projede JWT (JSON Web Token) kullanılarak güvenli oturum yönetimi yapılmaktadır. Kullanıcı giriş yaptıktan sonra alınan token, `localStorage` içinde saklanır ve tüm API isteklerinde `Authorization` başlığıyla gönderilir.
+
+### 🛡️ Guard Sistemi
+
+Uygulamada iki farklı guard yapısı vardır:
+
+- **Auth Guard (`auth.guard.ts`)**  
+  Kullanıcının giriş yapıp yapmadığını kontrol eder. Eğer oturum yoksa `welcome` sayfasına yönlendirir.
+
+- **Role Guard (`role.guard.ts`)**  
+  Kullanıcının rolüne göre (örneğin `ROLE_ADMIN`, `ROLE_USER`) belirli sayfalara erişimini sınırlar. Rol uyuşmuyorsa yine `welcome` sayfasına yönlendirir.
+
+### 🧪 Token Kontrolü
+
+Tüm isteklerde token şu şekilde header'a eklenir:
+
+```http
+Authorization: Bearer <jwt-token>
+```
+
+`AuthService` bu token'ı yönetir, çözümler ve kullanıcı rolünü kontrol etmek için yardımcı metotlar sağlar (`getUserRole()`, `isLoggedIn()` gibi).
+
 
